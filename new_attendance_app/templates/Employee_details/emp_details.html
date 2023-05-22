@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/view.css" %}"> 
+<div class="container">
+    <div class="personal-details">
+      <h2>Personal Details</h2>
+      <p><strong>Name:</strong> {{result.0}}</p>
+      <p><strong>Email:</strong> {{result.1}}</p>
+      <p><strong>Aadhar:</strong> {{result.2}}</p>
+      <p><strong>DOB:</strong> {{result.3}}</p>
+      <p><strong>Mob No:</strong> {{result.4}}</p>
+      <p><strong>Address:</strong> {{result.5}}</p>
+    </div>
+    <div class="company-details">
+      <h2>Company Details</h2>
+      <p><strong>Emp id:</strong> {{result.6}}</p>
+      <p><strong>TagID:</strong> {{result.7}}</p>
+      <p><strong>Designation:</strong> {{result.8}}</p>
+      <p><strong>Department:</strong> {{result.9}}</p>
+      <p><strong>DOJ:</strong> {{result.10}}</p>
+      <p><strong>Company:</strong> www.xyzcorp.com</p>
+    </div>
+  </div>
+  
+<script>
+  document.getElementById("emp_list").style.color = "blue";
+</script>
+{% endblock body_bolck %}
+
+
+
+
+
+
+

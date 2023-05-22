@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Attendance Marksheet</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+          padding: 20px;
+        }
+    
+        h1 {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+    
+        #input-form {
+          margin-bottom: 20px;
+        }
+    
+        table {
+          width: 100%;
+          border: 1px solid #dee2e6;
+          border-collapse: collapse;
+        }
+    
+        th, td {
+          padding: 10px;
+          text-align: center;
+          border: 1px solid #dee2e6;
+        }
+    
+        th {
+          background-color: #f8f9fa;
+        }
+    
+        tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+    
+        .present {
+          background-color: #c3e6cb;
+        }
+    
+        .absent {
+          background-color: #f5c6cb;
+        }
+      </style>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+       $(document).ready(function() {
+         // Fetch attendance data from API
+         $.get('http://localhost:3000/api/', function(data) {
+           // Process the data and populate the table
+           $.each(data, function(index, record) {
+             var row = $('<tr>');
+             row.append($('<td>').text(record.id));
+             row.append($('<td>').text(record.employee));
+             $.each(record.attendance, function(_, attendance) {
+               var cell = $('<td>').text(attendance);
+               if (attendance === '1') {
+                 cell.addClass('present');
+               } else {
+                 cell.addClass('absent');
+               }
+               row.append(cell);
+             });
+             row.append($('<td>').text(record.totalPresent));
+             row.append($('<td>').text(record.totalAbsent));
+             row.append($('<td>').text(record.totalLeaves));
+             $('tbody').append(row);
+           });
+         });
+       });
+     </script>
+  </head>
+  <body>
+    <h1>Attendance Marksheet</h1>
+    
+    <div id="input-form">
+      <label for="year">Year:</label>
+      <input type="text" id="year">
+      
+      <label for="month">Month:</label>
+      <input type="text" id="month">
+      
+      <button id="show-report">Show Report</button>
+    </div>
+    
+    <table id="tab">
+      <thead>
+        <tr>
+          <th rowspan="2">ID</th>
+          <th rowspan="2">Employee</th>
+          <th colspan="30">Dates</th>
+          <th rowspan="2">Total Present</th>
+          <th rowspan="2">Total Absent</th>
+          <th rowspan="2">Total Leaves</th>
+        </tr>
+        <tr>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+          <th>11</th>
+          <th>12</th>
+          <th>13</th>
+          <th>14</th>
+          <th>15</th>
+          <th>16</th>
+          <th>17</th>
+          <th>18</th>
+          <th>19</th>
+          <th>20</th>
+          <th>21</th>
+          <th>22</th>
+          <th>23</th>
+          <th>24</th>
+          <th>25</th>
+          <th>26</th>
+          <th>27</th>
+          <th>28</th>
+          <th>29</th>
+          <th>30</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+          <td>John</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+         
+        </tr>
+        
+        <!-- Add more rows for other employees -->
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+

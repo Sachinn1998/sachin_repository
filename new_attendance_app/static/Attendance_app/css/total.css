@@ -1,0 +1,142 @@
+
+
+#employee {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    top: 0;
+    
+  }
+  
+  #employee td, #employee th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #employee tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #employee tr:hover {background-color: #ddd;}
+  
+  #employee th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center ;
+    background-color: #7B2869;
+    color: white;
+    position: sticky;
+    
+  }
+  
+  #table_header{
+    border-radius: 30px;
+  }
+  
+  
+  .first{
+    padding: 15px;
+    flex: 1 0 50px;
+      width:20%;
+      height: inherit;
+      float: left;
+      border: 2px solid;
+      background: rgb(133, 193, 208);
+      margin-top: 20px;
+      margin-right: 20px;
+      margin-left: 10px;
+      box-shadow: 2px 2px 10px 2px;
+  }
+  
+  .second {
+      width: 80%;
+       margin-right: 20px; 
+      float: right;
+      flex: 1 0 600px; 
+      height: 500px;
+      overflow-y: auto;
+      margin-top: 20px;
+  }
+  
+  .main {
+    width: 100%;
+    height: 50%;
+  }
+    /* Custom CSS styles for form and table */
+    .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 10px;
+    }
+    
+    @media (min-width: 576px) {
+      .container {
+        max-width: 540px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        max-width: 720px;
+      }
+    }
+    
+    @media (min-width: 992px) {
+      .container {
+        max-width: 960px;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .container {
+        max-width: 1140px;
+      }
+    }
+    .container{
+      margin-top: 10px;
+    }
+    .form-container {
+      background-color: #f7f7f7;
+      padding: 20px;
+      border-radius: 5px;
+      /* margin-bottom: 10px; */
+  
+    }
+  
+    .table-container {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      padding-top: 10px;
+      overflow: auto; 
+      height: 520px;
+    }
+  
+    .table-container table {
+      width: 100%;
+    }
+  
+    .table-container th {
+      background-color: #f7f7f7;
+      font-weight: bold;
+    }
+  
+    .table-container td {
+      text-align: center;
+    }
+    /* Table Styles */
+.table {
+  border-radius: 0;
+  
+}
+
+.table thead th {
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #f2f2f2;
+}

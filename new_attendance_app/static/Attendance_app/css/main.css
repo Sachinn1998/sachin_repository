@@ -1,0 +1,181 @@
+body {
+  font-family: Arial;
+  color: white; 
+  
+}
+
+
+#logo{
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: "Sofia", sans-serif;
+  font-size: 45px;
+  text-shadow: 3px 3px 3px #ababab;
+}
+
+.nav-link:hover{
+  
+  cursor: pointer;
+}
+
+.navbar-brand{
+  font-weight: bold;
+}
+
+.collapse .navbar-collapse{
+  
+  margin-left: 10%;
+}
+
+
+#navbar{
+  border-radius: 0px;
+  background: #6B728E;
+}
+
+
+#slides{
+   width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  bottom: 50%;
+  right: 50%;
+
+}
+
+#main_slide{
+  width: 100%;
+  min-height: 1000px;
+  position: fixed;
+  background:url('https://trackoworld.in/images/3f145039daa7681611955644cf5de9ef.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.home_body{
+  width: 80%;
+  height: 75%;
+
+}
+
+#log-btn{
+  background: lightblue;
+  font-weight: bold;
+}
+
+#log-btn:hover{
+  background-color: blue;
+  color: white;
+}
+
+.col-py-3{
+  float: right;
+  height: 100%;
+  width: 80%;
+  border: 1px solid;
+}
+
+
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: #C1AEFC;
+  color: black;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left:0px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.left1{
+    width:15%;
+    height: 100%;  
+   float: left;
+   
+}
+
+.right1{
+   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+    width: 85%;
+    height: 100%;
+    float: right;
+    /* background: #F1F6F9; */
+}
+
+/*.master {
+  width: 100%;
+}*/
+
+
+#varticalNav  {
+  height: 100%;
+  position: absolute;
+  left:0;
+  /* top:90px; */
+  width:14%;
+  /* margin-top: 1px; */
+  background-color:#1b141a;
+
+}.nav{
+  list-style-type: none;
+  padding:0;
+  margin: 0;
+}
+.nav li{
+  width: 100%;
+  color:aliceblue;
+  /* border-bottom: 1px solid white; */
+}
+.nav li a{
+  font-size: 20px;
+  color:white;
+  display:block;
+  text-decoration: none;
+  padding: 10px;
+} 
+.navitem:hover{
+  background-color:#d2dae2;
+color:#696263;
+}
+/* .nav li a:hover{
+background-color:#d2dae2;
+color:#696263;
+} */
+.drpa:hover{
+  background-color:#917FB3;
+  color: #111;
+}
+.dropdown-btn:hover{
+  background-color:#d2dae2;
+color:#696263;
+}
+#profile{
+
+ margin-top: 5px;
+ border-bottom: 1px solid white;
+ 
+}
+h5{
+  margin-left: 14px;
+  display: flexbox;
+  flex-wrap: wrap;
+}

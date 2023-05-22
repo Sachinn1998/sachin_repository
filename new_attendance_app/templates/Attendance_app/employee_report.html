@@ -1,0 +1,69 @@
+
+
+{% extends "Attendance_app/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+
+
+<script src="{% static "/Attendance_app/js/employee_report.js" %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/employee_report.css" %}"> 
+
+<div class="container">
+
+ <div class="left-div">
+
+  <div class="form-wrapper">
+    <div class="inputbox" >
+      <input type="text" id="employee_id" name="emp_id" required>
+      <span>Employee ID</span>
+      <i></i>
+     </div>
+  </div>
+    <div class="form-field">
+      <label for="data" class="lb"> From Date </label>
+      <input type="date" id="from_dt" name="from_date" class="infos" required>
+    </div>
+    <div class="form-field">
+      <label for="data" class="lb"> To Date </label>
+      <input type="date" id="to_dt" name="to_date" class="infos" required>
+    </div>
+    
+    <div class="form-buttons">
+          <button class="btn btn-primary" onclick="getdata()">Submit</button><br>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Export
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" onclick="ExportToExcel('xlsx')">EXCEL</a>
+              <a class="dropdown-item" onclick="ExportToCsv('csv')">CSV</a>
+            </div>
+          </div>
+    </div>
+    <div class="alert alert-warning" id="alrt" role="alert"></div>
+  </div>
+    <!-- <tr><th class="row_details">Employee id:</th><th><input type="text" id="employee_id" name="emp_id" required></th></tr> -->
+    <!-- <tr><th class="row_details">From Date :</th><th><input type="date" id="from_dt" name="from_date" required></th></tr> -->
+    <!-- <tr><th class="row_details">To Date :</th><th><input type="date" id="to_dt" name="to_date" required></th></tr> -->
+    <!-- <div class="submit_btn">
+    <span><button class="btn btn-primary" onclick="getdata()">Submit</button><br></span>
+   <span><button type="button" id="export_btn" onclick="ExportToExcel('xlsx')" class="btn btn-secondary">Export</button></span></div>
+   -->
+    
+
+     
+    <div class="right-div" id="Attendance_tbl"></div>  
+
+</div>
+
+{% if active %}
+  <script>
+      document.getElementById("Attendance_btn").click();
+      document.getElementById("emp_rep").style.color = "blue";
+</script>
+
+{% endif %}
+
+{% endblock body_bolck %}

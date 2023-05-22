@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+{% extends "Attendance_app/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+  <link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/emp_details.css" %}"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ 
+  <div class="alert" id="alrt" role="alert"></div>
+  <div class="container">
+    <div class="form-container" id="formcontainer">
+          <form action="/emp_update/{{result.6}}/" method="post" class="form">
+          
+            <div class="row" >
+              <div class="col-md-6" style="margin-top: -100px;">
+                <div class="form-group">
+                  <input type="text" id="empname" name="name" class="form-control" value="{{result.0}}" required />
+                  <label for="empname">Employee Name</label>
+                </div>
+                <div class="form-group">
+                  <input type="email" id="empmail" name="email" class="form-control" value="{{result.1}}" required />
+                  <label for="empmail">Employee Email</label>
+                </div>
+                <div class="form-group">
+                  {% csrf_token %}
+                  <input type="text" id="aadharnumber" name="pid" class="form-control" value="{{result.2}}" required />
+                  <label for="aadharnumber">ID Proof</label>
+                </div>
+                <div class="form-group">
+                  <input type="tel" id="mobilenumber" name="mob" class="form-control" maxlength="10" minlength="10" value="{{result.4}}" required />
+                 
+                  <label for="mobilenumber">Mobile Number</label>
+                 
+                </div>
+                <div class="form-group">
+                 
+                  <input type="date" id="date" name="dob" class="form-control" value="{{result.3}}" required />
+                  <label for="DOB">DOB</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="address" class="form-control" value="{{result.5}}" required>
+                  <label for="empaddresult.s">Employee Address</label>
+                </div>
+              </div>
+              <div class="col-md-6"  style="margin-top: -100px;">
+                <div class="form-group">
+                  <input type="text" id="empid" name="empid" class="form-control" value="{{result.6}}" required />
+                  <label for="empid">Employee ID</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="tagid" name="tagid" class="form-control" value="{{result.7}}" required />
+                  <label for="tagid">Tag ID</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="empdesignation" name="designation" class="form-control" value="{{result.8}}" required />
+                  <label for="empdesignation">Employee Designation</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="department" name="department" class="form-control" value="{{result.9}}" required />
+                  <label for="department">Department</label>
+                </div>
+                <div class="form-group">
+                  <input type="date" id="doj" name="doj" class="form-control" value="{{result.10}}" required />
+                  <label for="doj">Date of Joining</label>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" id="isenabled" name="enabled"  value="1" checked />
+                  <label for="isenabled" id="lab"> Enabled</label>
+                </div>
+              </div>
+            
+            <div class="form-group1" id="form1">
+              <input type="submit" value="SAVE" class="btn btn-primary">
+            <a href="/emp_list/">  <input type="button" value="BACK" class="btn btn-primary" style="margin-left:50px ;"></a>
+            </div>
+          </div>
+          </form>
+      </div>
+    </div>
+
+
+
+    <script>document.getElementById("emp_list").style.color = "blue";
+    </script>
+
+{% if success %}
+  <script>   
+    document.getElementById("success_model").click();  
+    document.getElementById("alrt").style.display = "none"; 
+  </script>
+  {% endif %}
+{% if fail %}
+  <script>
+    document.getElementById("alrt").style.display = "inline-block";
+    document.getElementById("formcontainer").style.marginTop ="-90px"
+    document.getElementById("alrt").innerHTML = "WARNING! : Employee Id Already Exists";
+  </script>
+{% endif %}
+
+
+{% endblock body_bolck %}
+
+
+
+
+
+
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+{% extends "Attendance_app/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+  
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/all_empreports.css" %}">
+<script src="{% static "/Attendance_app/js/overall_reports.js" %}"></script>
+
+  <body>
+    <div class="container">
+      <form action="" method="post" class="form-container">
+        {% csrf_token %}
+         
+        <div class="form-group">
+          <label for="data" class="lb">  Date </label>
+          <input type="date" id="from_dt" name="from_date"  class="form-control" value="{{date}}" required>
+        </div>
+        <div class="form-group">
+          <label for="data" class="lb"> Department </label>
+          <select name="department"   class="form-control">
+            <option value="all">ALL</option>
+              <option value="r&d">R&D</option>
+              <option value="testing">TESTING</option>
+              <option value="production">PRODUCTION</option>
+              <option value="accounts">ACCOUNTS</option>
+            </select>
+      </div>
+        <div class="form-group" style="margin-top:50px;">
+          <button type="submit" class="btn btn-primary" >Get Employees</button>
+        </div>
+        <div class="form-group" style="margin-top:50px;margin-left: -150px;" id="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Export
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" onclick="ExportToExcel('xlsx')">EXCEL</a>
+              <a class="dropdown-item" onclick="ExportToCsv('csv')">CSV</a>
+            </div>
+        </div>
+        <div class="data" style="margin-right: 20px;">
+          <p>Total Emp     : {{total}}</p>
+          <p>Total Present : {{pr}}</p>
+          <p>Total Absent  : {{ab}}</p>
+        </div>
+      </form>
+      
+  
+      <table class="table" id="employee">
+        <thead>
+          <tr id="table_header">
+            <th>Employee Name</th>
+            <th>Employee Id</th>
+            <th>Tag Id</th>
+            <th>Date Of Join</th>
+            <th>Department</th>
+            <th>Attendance</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          {% if result %}
+        
+          {% for i in result %}
+            <tr>
+              {% for j in i %}
+              {% if j == 1 %}
+                <td>P</td>
+              {% elif j == 0 %}
+                <td>A</td>
+              {% else %}
+                <td>{{j}}</td>
+              {% endif %}
+                 
+              {% endfor %}
+           
+         
+          {% endfor %}
+          </tr>
+          {% endif %}
+          
+        </tbody>
+            </table>
+            <!-- <div class="pagination">
+              <a href="#">Previous</a>
+              <a href="#" class="active">1</a>
+              <a href="#">Next</a>
+            </div> -->
+      
+     </div>
+{% if active %}
+  <script>
+      document.getElementById("Attendance_btn").click();
+      document.getElementById("all_emp").style.color = "blue";
+
+  </script>
+
+{% endif %}
+
+{% endblock body_bolck %}

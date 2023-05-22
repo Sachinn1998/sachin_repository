@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/all_empreports.css" %}">
+<script src="{% static "/Attendance_app/js/overall_reports.js" %}"></script>
+
+ 
+<div class="container">
+      <div class="row">
+        <div class="col">
+          <form action="" method="post" class="form-container">
+            {% csrf_token %}
+             
+            <div class="row">
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label for="data" class="lb">  Date </label>
+                  <input type="date" id="from_dt" name="from_date"  class="form-control" value="{{date}}" required>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label for="data" class="lb"> Department </label>
+                  <select name="department"   class="form-control">
+                    <option value="all">ALL</option>
+                      <option value="r&d">R&D</option>
+                      <option value="testing">TESTING</option>
+                      <option value="production">PRODUCTION</option>
+                      <option value="accounts">ACCOUNTS</option>
+                    </select>
+                </div>
+              </div>
+            
+                <div class="col-md-3" style="margin-top: 33px;">
+                  <button type="submit" class="btn btn-primary">Get Employees</button>
+                </div>
+                <div class="col-md-3" style="margin-top: 33px;">
+                  <div class="btn-group">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Export
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" onclick="ExportToExcel('xlsx')">EXCEL</a>
+                      <a class="dropdown-item" onclick="ExportToCsv('csv')">CSV</a>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-2">
+                      <h5> Total Emp: {{total}}</h5>
+                    </div>
+                    <div class="col-2">
+                      <h5>Total Present: {{pr}}</h5>
+                    </div>
+                    <div class="col-3">
+                    <h5> Total Absent: {{ab}}</h5>
+                    </div>
+                  </div>
+                </div>
+                   
+                 
+            </div>
+          </form>
+        </div>
+      </div>
+     
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          {% if result %}
+      <table class="table" id="employee">
+        <thead>
+          <tr id="table_header">
+            <th>Employee Name</th>
+            <th>Employee Id</th>
+            <th>Tag Id</th>
+            <th>Date Of Join</th>
+            <th>Department</th>
+            <th>Attendance</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+         
+        
+          {% for i in result %}
+            <tr>
+              {% for j in i %}
+              {% if j == 1 %}
+                <td style="color:green;font-weight: bolder;">P</td>
+              {% elif j == 0 %}
+                <td style="color:red;font-weight: bolder;">A</td>
+              {% else %}
+                <td>{{j}}</td>
+              {% endif %}
+                 
+              {% endfor %}
+           
+         
+          {% endfor %}
+          </tr>
+          {% endif %}
+          
+        </tbody>
+            
+          </table>
+          </div>
+        </div>
+       </div> 
+     
+      
+</div>
+
+<script>
+    document.getElementById('from_dt').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+ 
+    
+      
+      document.getElementById("all_emp").style.color = "blue";
+
+  </script>
+
+
+ <!-- Bootstrap JavaScript dependencies (jQuery and Popper.js) -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock body_bolck %}

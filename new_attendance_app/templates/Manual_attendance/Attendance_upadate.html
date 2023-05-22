@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+<html>
+
+<head>
+  <title>manual_attendance</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .container {
+      max-width: 800px;
+    }
+    #form-container {
+  background-color: #f5f5f5;  
+  padding: 15px;
+  border: 2px solid #c4c2c282;
+  border-radius: 10px;
+  width: auto;
+  margin-top: 10px;
+  background-color: #9BA4B5;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+}
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+    .table {
+  border-radius: 0;
+}
+
+.table thead th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #f2f2f2;
+}
+    th {
+      text-align: center;
+      font-weight: bold;
+      background-color: #f8f9fa;
+    }
+
+    td {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container mt-2">
+    <form method="post" >
+    <div class="row">
+      <div class="col" id="form-container">
+        <h2>Manual Attendance Updation</h2>
+
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="employeeId">Employee ID:</label>
+              <input type="text" class="form-control" id="employeeId" name="empid" required placeholder="Enter Emp Id">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="year">Year:</label>
+              <input type="number" class="form-control" name="year" id="year" min="2010" max="2099" value="2023"
+                required>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="month">Month:</label>
+              <select class="form-control" id="month" name="months" required>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" onclick="showDates()" class="btn btn-primary" id="showbtn"
+              style="margin-top: 33px;">Show dates</button>
+            <button type="submit" class="btn btn-primary" id="subbtn"
+              style="margin-top: 33px; display: none;">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <table id="dateTable" class="table">
+          <thead>
+            <tr>
+              <th>Sun</th>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
+            </tr>
+          </thead>
+          <tbody id="dateTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+  </div>
+ 
+ <!-- Button trigger modal -->
+<button type="button" id="success_model" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trackoworld</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="info">
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if inserted %}
+  <script>   
+    document.getElementById("success_model").click();  
+    document.getElementById("info").innerHTML = "Attendance Inserted"; 
+  </script>
+{% endif %}
+
+{% if updated %}
+  <script>   
+    document.getElementById("success_model").click(); 
+    document.getElementById("info").innerHTML = "Attendance Updated"; 
+  </script>
+{% endif %}
+
+{% if notfound %}
+  <script>   
+    document.getElementById("success_model").click();  
+    document.getElementById("info").innerHTML = "Empolyee ID is Not found"; 
+  </script>
+{% endif %}
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+
+    function showDates() {
+
+      var employeeId = $('#employeeId').val();
+      var year = $('#year').val();
+      var month = $('#month').val();
+
+      // Clear previous table data
+      $('#dateTableBody').empty();
+
+      // Get the number of days in the selected month
+      var daysInMonth = new Date(year, month, 0).getDate();
+
+      // Get the first day of the month
+      var firstDay = new Date(year, month - 1, 1).getDay();
+
+      // Create empty cells for days before the first day of the month
+      for (var i = 0; i < firstDay; i++) {
+        $('#dateTableBody').append('<td></td>');
+      }
+
+      // Create table rows and insert dates with checkboxes in appropriate columns
+      var currentDate = 1;
+      var c = 1;
+      for (var week = 0; currentDate <= daysInMonth; week++) {
+        var row = $('<tr></tr>');
+
+        for (var day = 0; day < 7; day++) {
+          if (week === 0 && day < firstDay) {
+            row.append('<td></td>');
+          } else if (currentDate <= daysInMonth) {
+            var date = new Date(year, month - 1, currentDate);
+            var formattedDate = date.toLocaleDateString('en-US', { day: 'numeric' });
+            row.append('<td><label><input type="checkbox" name="date' + String(c) + '" value="' + formattedDate + '"> ' + formattedDate + '</label></td>');
+            currentDate++;
+            c++;
+          }
+        }
+
+        $('#dateTableBody').append(row);
+      }
+      document.getElementById("showbtn").style.display = "none"
+      document.getElementById("subbtn").style.display = "inline"
+      // Do something with the employee ID, year, and month values
+      console.log('Employee ID:', employeeId);
+      console.log('Year:', year);
+      console.log('Month:', month);
+    };
+
+
+  </script>
+</body>
+
+</html>
+{% endblock body_bolck %}

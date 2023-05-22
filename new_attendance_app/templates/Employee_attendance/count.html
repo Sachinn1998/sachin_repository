@@ -1,0 +1,81 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+  
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/total.css" %}">
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-container">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="from_date">Date:</label>
+            <input type="date" class="form-control" name="from_date" value="{{fd}}" required>
+          </div>
+          <div class="form-group">
+            <label for="to_date">Date:</label>
+            <input type="date" class="form-control" name="to_date" value="{{td}}" required>
+          </div>
+          <div class="form-group">
+            <label for="department">Department:</label>
+            <select class="form-control" name="department" id="department">
+              <option value="all">ALL</option>
+              <option value="r&d">R&amp;D</option>
+              <option value="testing">TESTING</option>
+              <option value="production">PRODUCTION</option>
+              <option value="accounts">ACCOUNTS</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9">
+      {% if result %}
+      <div class="table-container">
+        
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Date</th>
+              <th>Total Employees</th>
+              <th>Total Present</th>
+              <th>Total Absent</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+            {% for i in result %}
+            <tr>
+              {% for j in i %}
+              <td>{{j.0}}</td>
+              <td><a href="{{j.0}}/{{j.1}}">{{j.1}}</a></td>
+              <td>{{j.2}}</td>
+              <td>{{j.3}}</td>
+              <td>{{j.4}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+      document.getElementById("all_emp_count").style.color = "blue";
+
+  </script>
+
+
+
+{% endblock body_bolck %}

@@ -1,0 +1,123 @@
+CREATE TABLE `tblemployeedetails` (
+  `tagid` bigint NOT NULL,
+  `empid` int NOT NULL,
+  `empname` varchar(45) NOT NULL,
+  `empdoj` date NOT NULL,
+  `empaddress` varchar(255) NOT NULL,
+  `empmobile` bigint NOT NULL,
+  `empemail` varchar(255) NOT NULL,
+  `emppersonalid` varchar(45) NOT NULL,
+  `empdob` date NOT NULL,
+  `empdesiginition` varchar(45) NOT NULL,
+  `empdepartment` varchar(45) NOT NULL,
+  `isenabled` tinyint(1) DEFAULT NULL
+) ;
+
+
+
+CREATE TABLE `tblrawdata` (
+  `ts` timestamp NOT NULL,
+  `version` float NOT NULL,
+  `signalstength` int NOT NULL,
+  `tagcount` int NOT NULL,
+  `gatereaderid` int NOT NULL,
+  `imei` bigint NOT NULL,
+  `gatereadername` varchar(45) DEFAULT NULL,
+  `simno` bigint DEFAULT NULL,
+  `ipaddress` varchar(45) DEFAULT NULL,
+  `ssid` varchar(45) DEFAULT NULL,
+  `subnetmask` varchar(45) DEFAULT NULL,
+  `defaultgateway` varchar(45) DEFAULT NULL,
+  `routerpassword` varchar(45) DEFAULT NULL,
+  `latitude` float DEFAULT NULL,
+  `longitude` float DEFAULT NULL,
+  `tagdata` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+);
+
+
+CREATE TABLE `tblgateconfigmaster` (
+  `gatereaderid` int NOT NULL,
+  `imei` bigint NOT NULL,
+  `gatereadername` varchar(45) DEFAULT NULL,
+  `simno` bigint NOT NULL,
+  `ipaddress` varchar(45) DEFAULT NULL,
+  `ssid` varchar(45) DEFAULT NULL,
+  `subnetmask` varchar(45) DEFAULT NULL,
+  `defaultgateway` varchar(45) DEFAULT NULL,
+  `routerpassword` varchar(45) DEFAULT NULL,
+  `lat` float DEFAULT NULL,
+  `lang` float DEFAULT NULL,
+  `updatestatus` tinyint(1) DEFAULT NULL,
+  `updatedts` timestamp NOT NULL
+)
+
+
+PROCEDURE `sproc_dataupdation`(dt varchar(45), vr float, sig_strength int, tagcnt int, readerid int, imei1 bigint, readername varchar(45), sim_no bigint, ipadd varchar(45),
+ssid1 varchar(45), sn_mask varchar(45), d_gateway varchar(45), rout_pass varchar(45), lt float,lg float, t_id bigint, t_data varchar(255) )
+BEGIN
+DECLARE tbl_name VARCHAR(50);
+DECLARE details VARCHAR(50);
+DECLARE date1 VARCHAR(50);
+DECLARE dt_count int;
+DECLARE emp_id int;
+DECLARE evnt tinyint(1);
+
+SET date1 = CONCAT(DATE(dt), " 00:00:00");
+SET tbl_name = CONCAT('tblemployee_', t_id);
+SET details = CONVERT(readerid,CHAR);
+
+if not exists(select gatereaderid from tblrawdata where gatereaderid = readerid)then
+insert into tblrawdata values(dt,vr,sig_strength,tagcnt,readerid,imei1,readername,sim_no,ipadd,ssid1,sn_mask,d_gateway,rout_pass,lt,lg,t_data);
+else
+update tblrawdata
+set ts			    = dt,
+	version 		= vr,
+    signalstength   = sig_strength,
+    tagcount 		= tagcnt,
+    gatereaderid    = readerid,
+    imei 			= imei1,
+    gatereadername  = readername,
+    simno 			= sim_no,
+	ipaddress 		= ipadd,
+    ssid 			= ssid1,
+    subnetmask 		= sn_mask,
+    defaultgateway 	= d_gateway,
+    routerpassword 	= rout_pass,
+    latitude  		= lt,
+    longitude 		= lg,
+    tagdata 		= t_data
+where gatereaderid = readerid;
+end if;
+
+SET @sql = CONCAT('CREATE TABLE IF NOT EXISTS ', tbl_name, ' (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, empid int NOT NULL,ts timestamp NOT NULL,event tinyint(1) NOT NULL,details varchar(255) NOT NULL);');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (CONCAT("select count(event) into @dt_count from ",tbl_name," where ts >= '",date1,"'"));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (CONCAT("select event into @evnt from ",tbl_name," where id=(SELECT LAST_INSERT_ID());"));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+IF (@evnt <=> NULL) THEN
+	SET evnt = 0;
+ELSEIF (@dt_count = 0) THEN
+	SET evnt = 0;
+ELSEIF (@evnt = 0) THEN  
+	SET evnt = 1;  
+ELSE  
+	SET evnt = 0;    
+END IF;
+
+select empid into emp_id from tblemployeedetails where tagid = t_id;
+SET @sql = CONCAT('insert into ', tbl_name, ' (empid,ts,event,details) values (',emp_id,",'",dt,"',",evnt,",",details,");");
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+END

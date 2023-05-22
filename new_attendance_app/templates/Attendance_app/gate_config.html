@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+{% extends "Attendance_app/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+  
+  <link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/gate_config.css" %}"> 
+
+  
+  <div class="container">
+    <div class="form-container">
+      <div>
+        <table class="form">
+          <tr>
+            <td>
+              <form  method="post" >
+              <div class="wrapper">
+                <div class="input-group" style="margin-top:-6px;">
+                  <input type="text" id="gatereaderid" name="readerid" required />
+                  <label for="gatereaderid">GATE READER ID</label>
+                </div>
+                <div class="input-group">
+                  <input type="text" id="imei" name="imei" required />
+                  <label for="imei">IMEI</label>
+                </div>
+                <div class="input-group">
+                <input type="text" id="gatereadername" name="readername" required />
+                <label for="gatereadername">GATE READER NAME</label>
+               </div>
+               <div class="input-group">
+                <input type="text" id="simno" name="simno" required />
+                <label for="simno">SIM NUMBER</label>
+               </div>
+               {% csrf_token %}
+               <div class="input-group">
+                <input type="text" id="ipaddress" name="ipaddress" required />
+                <label for="ipaddress">IP ADDRESS</label>
+              </div>
+              <div class="input-group">
+                <input type="text" id="ssid" name="ssid" required/>
+                <label for="ssid">SSID</label>
+              </div>
+              </td>
+              <td >
+                <div class="input-group">
+                  <input type="text" id="subnetmask" name="subnetmask" required />
+                  <label for="subnetmask">SUBNET MASK</label>
+                </div>
+                <div class="input-group">
+                  <input type="text" id="defaultgateway" name="defaultgateway" required />
+                  <label for="defaultgateway">DEFAULT GATEWAY</label>
+                </div>
+                <div class="input-group">
+                  <input type="text" id="routerpassword" name="routerpassword" required />
+                  <label for="routerpassword">ROUTER PASSWORD</label>
+                </div>
+                <div class="input-group">
+                  <input type="text" id="lat" name="lat" required />
+                  <label for="lat">LATTITUDE</label>
+                </div>
+                <div class="input-group">
+                  <input type="text" id="lang" name="lang" required />
+                  <label for="lang">LONGITUDE</label>
+                </div>
+                <br>
+                <div class="form-group" style="margin-left: 80px;">
+                  <input type="submit" value="SUBMIT">
+                </div>
+                </div>
+              </form>
+              </td>
+            </div>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Button trigger modal -->
+<button type="button" id="success_model" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trackoworld</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Succesfully Updated.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if options %}
+<script>
+    
+    document.getElementById("gate_config").style.color = "blue";
+
+</script>
+{% else %}
+<script>
+  document.getElementById("gate_config").style.color = "blue";
+ document.getElementById("success_model").click();
+// alert('dfhdgjd')
+
+</script>
+{% endif %}
+
+
+{% endblock body_bolck %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+<html>
+<head>
+  <title>Attendance Management</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #chartContainer {
+      width: 400px;
+      height: 400px;
+      margin: 0 auto;
+    }
+  </style>
+  
+</head>
+<body>
+  <div id="chartContainer">
+    <canvas id="pieChart"></canvas>
+  </div>
+  <div id="barGraphContainer">
+    <canvas id="barGraph"></canvas>
+  </div>
+
+  <script>
+    // Sample attendance data
+const attendanceData = [
+  {
+    month: 'January',
+    value: 25,
+  },
+  {
+    month: 'February',
+    value: 30,
+  },
+  {
+    month: 'March',
+    value: 20,
+  },
+  {
+    month: 'April',
+    value: 35,
+  },
+  {
+    month: 'May',
+    value: 40,
+  },
+];
+
+// Pie chart
+const pieChartCanvas = document.getElementById('pieChart').getContext('2d');
+new Chart(pieChartCanvas, {
+  type: 'pie',
+  data: {
+    labels: attendanceData.map(item => item.month),
+    datasets: [
+      {
+        data: attendanceData.map(item => item.value),
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#8bc34a',
+          '#9c27b0',
+        ],
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+  },
+});
+
+// Bar graph
+const barGraphCanvas = document.getElementById('barGraph').getContext('2d');
+new Chart(barGraphCanvas, {
+  type: 'bar',
+  data: {
+    labels: attendanceData.map(item => item.month),
+    datasets: [
+      {
+        label: 'Attendance',
+        data: attendanceData.map(item => item.value),
+        backgroundColor: '#8bc34a',
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+  </script>
+</body>
+{% endblock body_bolck %}
+</html>

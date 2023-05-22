@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="personal-details">
+    <h2>Personal Details</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Email:</strong> johndoe@example.com</p>
+    <p><strong>Phone:</strong> 123-456-7890</p>
+  </div>
+  <div class="company-details">
+    <h2>Company Details</h2>
+    <p><strong>Company:</strong> XYZ Corporation</p>
+    <p><strong>Address:</strong> 123 Main St, City, State</p>
+    <p><strong>Website:</strong> www.xyzcorp.com</p>
+  </div>
+</div>
+<style>.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.personal-details,
+.company-details {
+  flex-basis: 48%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.personal-details h2,
+.company-details h2 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.personal-details p,
+.company-details p {
+  margin-bottom: 5px;
+}
+
+</style>

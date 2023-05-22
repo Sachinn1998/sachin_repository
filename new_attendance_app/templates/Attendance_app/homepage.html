@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+{% extends "Attendance_app/base.html" %}
+{% load static %}
+{% block body_bolck %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/homepage.css" %}"> 
+<script src="{% static "/Attendance_app/js/homepage.js" %}"></script>
+
+
+      <div id="map" ></div>
+  
+  <div id="mainsiteinfo" class="rightsidebar" style="position: absolute;top: 7px;">
+    <div id="siteinfo">
+      <!-- <input id="txtEID" type="text" onkeyup="siteSearch()" placeholder="Enter Sitename or DeviceID" class="searchic" /> -->
+      <table class="ttsrch" id="mytbl">
+        <thead>
+          <tr><th>Site Name</th><th>Device ID</th>
+        </thead>
+        <tbody id="tblinfo">
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="commstatus" id="comsite">
+      Communication Status <br /><br>
+      (Communicating Sites/Total Sites)<br />
+      (<span id="cmsites"></span> / <span id="ttlsites"></span>)
+    </div> -->
+  </div>
+
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap" async defer></script>
+{% endblock body_bolck %}

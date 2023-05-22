@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+{% extends "Attendance_app/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+
+  <link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/manual_attendance.css" %}">
+  <script src="{% static "/Attendance_app/js/manual_attendance.js" %}" type="text/javascript"></script>
+  
+ <br>
+
+<div class="first">
+  <div id = "emp_details">
+    
+    <table>
+    <tr><th class="row_details">Employee id:</th><th><input type="text" id="employee_id" name="emp_id" required></th></tr>
+    <tr><th class="row_details">Month :</th><th><input type="month" id="month" name="month" required></th></tr>
+    <tr><th class="row_details"></th><th></th></tr>
+    <tr><th class="row_details"></th><th><button type="button" class="btn btn-secondary" onclick="create_attendence()">Submit</button></th></tr>
+
+  </table>
+  </div>
+
+</div>
+
+<div class="second" id="calander">
+  
+   <!-- <table style="display: none;">
+            <thead>
+                <tr id="attend-head">
+                    <th class="name-col">Employee Name</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                    <th>11</th>
+                    <th>12</th>
+                    <th>13</th>
+                    <th>14</th>
+                    <th>15</th>
+                    <th>16</th>
+                    <th>17</th>
+                    <th>18</th>
+                    <th>19</th>
+                    <th>20</th>
+                    <th>21</th>
+                    <th>22</th>
+                    <th>23</th>
+                    <th>24</th>
+                    <th>25</th>
+                    <th>26</th>
+                    <th>27</th>
+                    <th>28</th>
+                    <th>29</th>
+                    <th>30</th>
+                    <th>31</th>
+                    <th class="missed-col">Total Present</th>
+                    <th class="missed-col">Total Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="student">
+                    <td class="name-col">Emp Name</td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="attend-col"><input type="checkbox"></td>
+                    <td class="missed-col">0</td>
+                    <td class="missed-col">0</td>
+                </tr>               
+            </tbody>
+        </table> -->
+</div>
+
+{% if active %}
+  <script>
+      document.getElementById("Attendance_btn").click();
+      document.getElementById("man_attendance").style.color = "blue";
+
+  </script>
+
+{% endif %}
+
+{% endblock body_bolck %}

@@ -1,0 +1,81 @@
+{% extends "Attendance_app/base.html" %}
+
+{% load static %}
+
+{% block body_bolck %}
+  
+<link rel="stylesheet" type="text/css" href="{% static "/Attendance_app/css/total.css" %}">
+<br>
+
+
+ <div class="first">
+<form action="" method="POST">
+   {% csrf_token %}
+    <table>
+    <tr><th class="row_details">Date :</th><th><input type="date"
+     name="from_date" value="{{fd}}" required></th></tr>
+    <tr><th class="row_details">Date :</th><th><input type="date" name="to_date" value="{{td}}" required></th></tr>
+    <tr><th class="row_details">Department :</th><th>
+     <select name="department" id="cars">
+      <option value="all">ALL</option>
+        <option value="r&d">R&D</option>
+        <option value="testing">TESTING</option>
+        <option value="production">PRODUCTION</option>
+        <option value="accounts">ACCOUNTS</option>
+      </select>
+
+     
+    <tr><td></td><td></td></tr><tr><td></td></tr>
+    <tr><th class="row_details"></th><th><button type="submit" class="btn btn-secondary">Submit</button></th></tr>
+
+  </table>
+</form>
+ </div>
+ <div class="second">
+    <table id="employee">
+    <thead>
+      <tr id="table_header">
+        <th>Department</th>
+        <th>Date</th>
+        <th>Total Employees</th>
+        <th>Total Present</th>
+        <th>Total Absent</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% if result %}
+      {% for i in result %}
+        <tr>
+          {% for j in i %}
+          
+            <td>{{j.0}}</td>
+            <td> <a href="demo/{{j.0}}/{{j.1}}">{{j.1}}</a></td>
+            <td>{{j.2}}</td>
+            <td>{{j.3}}</td>
+            <td>{{j.4}}</td>
+    
+          
+    {% endfor %}
+      {% endfor %}
+      </tr>
+      {% endif %}
+      
+    </tbody>
+   </table>
+</div>
+
+<script>
+      document.getElementById("all_emp_count").style.color = "blue";
+</script>
+
+{% if active %}
+  <script>
+      document.getElementById("Attendance_btn").click();
+      document.getElementById("all_emp_count").style.color = "blue";
+
+  </script>
+
+{% endif %}
+
+{% endblock body_bolck %}
